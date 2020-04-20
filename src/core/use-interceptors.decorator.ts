@@ -1,11 +1,10 @@
-/*
-import { INTERCEPTORS_METADATA } from '../../constants';
-import { NestInterceptor } from '../../interfaces';
-import { extendArrayMetadata } from '../../utils/extend-metadata.util';
-import { isFunction } from '../../utils/shared.utils';
-import { validateEach } from '../../utils/validate-each.util';
+import { INTERCEPTORS_METADATA } from '../constants';
+import { extendArrayMetadata } from '../utils/extend-metadata.util';
+import { isFunction } from '../utils/shared.utils';
+import { validateEach } from '../utils/validate-each.util';
+import BaseInterceptor, { Interceptor } from "../interceptor/base-interceptor";
 
-/!**
+/**
  * Decorator that binds interceptors to the scope of the controller or method,
  * depending on its context.
  *
@@ -18,16 +17,14 @@ import { validateEach } from '../../utils/validate-each.util';
  * @param interceptors a single interceptor instance or class, or a list of
  * interceptor instances or classes.
  *
- * @see [Interceptors](https://docs.nestjs.com/interceptors)
- *
  * @usageNotes
  * Interceptors can also be set up globally for all controllers and routes
- * using `app.useGlobalInterceptors()`.  [See here for details](https://docs.nestjs.com/interceptors#binding-interceptors)
+ * using `app.useGlobalInterceptors()`.
  *
  * @publicApi
- *!/
+ */
 export function UseInterceptors(
-  ...interceptors: (NestInterceptor | Function)[]
+  ...interceptors: (BaseInterceptor | Interceptor | Function)[]
 ): MethodDecorator & ClassDecorator {
   return (
     target: any,
@@ -67,4 +64,3 @@ export function UseInterceptors(
     return target;
   };
 }
-*/

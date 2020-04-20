@@ -6,7 +6,6 @@ export * from './exceptions/rpc-exception-filter.interface';
 export * from './exceptions/ws-exception-filter.interface';
 export * from './external/validation-error.interface';
 export * from './features/arguments-host.interface';
-export * from './features/can-activate.interface';
 export * from './features/custom-route-param-factory.interface';
 export * from './features/execution-context.interface';
 export * from './features/nest-interceptor.interface';

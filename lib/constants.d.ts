@@ -26,5 +26,4 @@ export declare const HTTP_CODE_METADATA = "__httpCode__";
 export declare const MODULE_PATH = "__module_path__";
 export declare const HEADERS_METADATA = "__headers__";
 export declare const REDIRECT_METADATA = "__redirect__";
-export declare const BEFORE_METADATA = "before";
-export declare const AFTER_METADATA = "after";
+export declare const VALIDATOR_METADATA = "validator";

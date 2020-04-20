@@ -3,8 +3,6 @@ import { Type } from '../interfaces/type.interface';
 /**
  * Defines the injection scope.
  *
- * @see [Injection Scopes](https://docs.nestjs.com/fundamentals/injection-scopes)
- *
  * @publicApi
  */
 export declare type InjectableOptions = ScopeOptions;

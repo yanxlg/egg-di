@@ -1,6 +1,6 @@
 import { ExceptionFilter } from './exceptions/exception-filter.interface';
 import { CanActivate } from './features/can-activate.interface';
-import { NestInterceptor } from './features/nest-interceptor.interface';
+import { Interceptor } from './features/nest-interceptor.interface';
 import { PipeTransform } from './features/pipe-transform.interface';
 import { INestApplicationContext } from './nest-application-context.interface';
 import { WebSocketAdapter } from './websockets/web-socket-adapter.interface';
@@ -47,9 +47,9 @@ export interface INestMicroservice extends INestApplicationContext {
     /**
      * Registers interceptors as a global interceptors (will be used within every message pattern handler)
      *
-     * @param  {NestInterceptor[]} ...interceptors
+     * @param  {Interceptor[]} ...interceptors
      */
-    useGlobalInterceptors(...interceptors: NestInterceptor[]): this;
+    useGlobalInterceptors(...interceptors: Interceptor[]): this;
     /**
      * Registers guards as a global guards (will be used within every message pattern handler)
      *

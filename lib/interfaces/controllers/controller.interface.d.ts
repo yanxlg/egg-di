@@ -1,1 +1,2 @@
-export declare type Controller = object;
+import { Controller } from "egg";
+export declare type ControllerClass = typeof Controller;

@@ -5,16 +5,21 @@ import {HOST_METADATA, METHOD_METADATA, PATH_METADATA, SCOPE_OPTIONS_METADATA} f
 import {isString, isUndefined, validatePath} from '../utils/shared.utils';
 import {UnknownRequestMappingException} from '../errors/exceptions/unknown-request-mapping.exception';
 import * as fs from "fs";
-import { Controller } from 'egg';
-import { ControlDir } from '../enums/project-path.enum';
+import {Controller} from 'egg';
+import {ControlDir} from '../enums/project-path.enum';
+import {ControllerClass} from "../interfaces/controllers";
 
 interface ControllerItem {
-    fileName:string;
-    prefix:string;
-    methods:any
-    controllerClass:any;
+    fileName: string;
+    prefix: string;
+    methods: Array<{
+        path: string[],
+        requestMethod: string,
+        targetCallback: Function,
+        methodName: string,
+    }>;
+    controllerClass: any;
 }
-
 
 
 class ControllerScanner {
@@ -26,30 +31,29 @@ class ControllerScanner {
 
     public scanFromDir() {
         const dir = path.resolve();// 项目根目录
-        const dirPath = path.join(dir,ControlDir);
+        const dirPath = path.join(dir, ControlDir);
         const files = readdirSync(dirPath);
-        let list:ControllerItem[] =[];
+        let list: ControllerItem[] = [];
 
         files.map(file => {
-            let fPath=path.join(dirPath,file);
-            let stats=fs.statSync(fPath);
-            if(stats.isDirectory()) {
+            let fPath = path.join(dirPath, file);
+            let stats = fs.statSync(fPath);
+            if (stats.isDirectory()) {
                 throw "文件夹嵌套后续处理";
             }
 
             // TODO 需要做更多兼容
-            const fileName = file.replace(/\.(js|ts)/,'');
+            const fileName = file.replace(/\.(js|ts)/, '');
 
-            if(stats.isFile()) {
+            if (stats.isFile()) {
                 const controllerClass = require(dir + '/app/controller/' + file).default;
-                // 判断是否使用@Controller注册
                 const {path} = this.exploreControllerMetadata(controllerClass);
-                if(path){
+                if (path) {
                     list.push({
-                        fileName:fileName,
-                        controllerClass:controllerClass,
-                        prefix:path,
-                        methods:this.scanForPaths(controllerClass.prototype)
+                        fileName: fileName,
+                        controllerClass: controllerClass,
+                        prefix: path,
+                        methods: this.scanForPaths(controllerClass.prototype)
                     });
                 }
             }
@@ -57,11 +61,11 @@ class ControllerScanner {
         return list;
     }
 
-    private exploreControllerMetadata(controllerClass:Controller){
+    private exploreControllerMetadata(controllerClass: ControllerClass) {
         return {
-            path:Reflect.getMetadata(PATH_METADATA, controllerClass),
-            host:Reflect.getMetadata(HOST_METADATA, controllerClass),
-            options:Reflect.getMetadata(SCOPE_OPTIONS_METADATA, controllerClass)
+            path: Reflect.getMetadata(PATH_METADATA, controllerClass),
+            host: Reflect.getMetadata(HOST_METADATA, controllerClass),
+            options: Reflect.getMetadata(SCOPE_OPTIONS_METADATA, controllerClass)
         }
     }
 

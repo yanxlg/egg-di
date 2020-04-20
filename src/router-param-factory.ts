@@ -1,6 +1,7 @@
 import { RouteParamtypes } from './enums/route-paramtypes.enum';
 import { Context } from 'egg';
 import * as Koa from "koa";
+import {RouteParamMetadata} from "./http";
 
 export class RouteParamsFactory {
     public exchangeKeyForValue(
@@ -37,5 +38,18 @@ export class RouteParamsFactory {
             default:
                 return undefined;
         }
+    }
+
+    public getArgsByMap(metadataKeys:{[key:string]:RouteParamMetadata},context:Context,next:Koa.Next){
+        let args:any[] =[];
+        if(metadataKeys){
+            // parse
+            for(let key in metadataKeys){
+                const parasType = Number(key.split(":")[0]);
+                const {index,data} = metadataKeys[key];
+                args[index] = this.exchangeKeyForValue(parasType,data,context,next);
+            }
+        }
+        return args;
     }
 }

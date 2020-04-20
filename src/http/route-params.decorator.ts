@@ -53,7 +53,6 @@ const createPipesRouteParamDecorator = (paramtype: RouteParamtypes) => (
     const hasParamData = isNil(data) || isString(data);
     const paramData = hasParamData ? data : undefined;
     const paramPipes = hasParamData ? pipes : [data, ...pipes];
-    console.log(target.constructor);
     Reflect.defineMetadata(
         ROUTE_ARGS_METADATA,
         assignMetadata(args, paramtype, index, paramData, ...paramPipes),

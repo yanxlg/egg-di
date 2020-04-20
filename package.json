@@ -1,9 +1,10 @@
 {
   "name": "egg-di-plugin",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "support DI for egg to let egg can be used like java",
   "eggPlugin": {
-    "name": "di"
+    "name": "di",
+    "optionalDependencies": ["validate"]
   },
   "keywords": [
     "egg",

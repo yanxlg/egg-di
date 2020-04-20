@@ -1,11 +1,10 @@
-/*
 import { GUARDS_METADATA } from '../constants';
-import { CanActivate } from '../interfaces';
 import { extendArrayMetadata } from '../utils/extend-metadata.util';
-import { isFunction } from '../../utils/shared.utils';
-import { validateEach } from '../../utils/validate-each.util';
+import { isFunction } from '../utils/shared.utils';
+import { validateEach } from '../utils/validate-each.util';
+import BaseGuard, {Guard} from "../guards/base-guard";
 
-/!**
+/**
  * Decorator that binds guards to the scope of the controller or method,
  * depending on its context.
  *
@@ -25,9 +24,9 @@ import { validateEach } from '../../utils/validate-each.util';
  * using `app.useGlobalGuards()`.  [See here for details](https://docs.nestjs.com/guards#binding-guards)
  *
  * @publicApi
- *!/
+ */
 export function UseGuards(
-  ...guards: (CanActivate | Function)[]
+  ...guards: (BaseGuard | Guard | Function)[]
 ): MethodDecorator & ClassDecorator {
   return (
     target: any,
@@ -55,4 +54,3 @@ export function UseGuards(
     return target;
   };
 }
-*/

@@ -1,8 +1,7 @@
-/*
-import { HEADERS_METADATA } from '../../constants';
-import { extendArrayMetadata } from '../../utils/extend-metadata.util';
+import { HEADERS_METADATA } from '../constants';
+import { extendArrayMetadata } from '../utils/extend-metadata.util';
 
-/!**
+/**
  * Request method Decorator.  Sets a response header.
  *
  * For example:
@@ -14,7 +13,7 @@ import { extendArrayMetadata } from '../../utils/extend-metadata.util';
  * @see [Headers](https://docs.nestjs.com/controllers#headers)
  *
  * @publicApi
- *!/
+ */
 export function Header(name: string, value: string): MethodDecorator {
   return (
     target: object,
@@ -25,4 +24,3 @@ export function Header(name: string, value: string): MethodDecorator {
     return descriptor;
   };
 }
-*/
