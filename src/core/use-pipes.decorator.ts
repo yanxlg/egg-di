@@ -1,11 +1,10 @@
-/*
-import { PIPES_METADATA } from '../../constants';
-import { PipeTransform } from '../../interfaces/index';
-import { extendArrayMetadata } from '../../utils/extend-metadata.util';
-import { isFunction } from '../../utils/shared.utils';
-import { validateEach } from '../../utils/validate-each.util';
+import { PIPES_METADATA } from '../constants';
+import { PipeTransform } from '../interfaces/index';
+import { extendArrayMetadata } from '../utils/extend-metadata.util';
+import { isFunction } from '../utils/shared.utils';
+import { validateEach } from '../utils/validate-each.util';
 
-/!**
+/**
  * Decorator that binds pipes to the scope of the controller or method,
  * depending on its context.
  *
@@ -25,7 +24,7 @@ import { validateEach } from '../../utils/validate-each.util';
  * using `app.useGlobalPipes()`.  [See here for details](https://docs.nestjs.com/pipes#class-validator)
  *
  * @publicApi
- *!/
+ */
 
 export function UsePipes(
   ...pipes: (PipeTransform | Function)[]
@@ -48,4 +47,3 @@ export function UsePipes(
     return target;
   };
 }
-*/

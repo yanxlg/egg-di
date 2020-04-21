@@ -5,18 +5,16 @@ import {defer, from as fromPromise, Observable} from 'rxjs';
 import {mergeAll, switchMap} from 'rxjs/operators';
 import iterate from 'iterare';
 import InterceptorManager, {InterceptorMap} from "./interceptor-manager";
-import {RouteParamsFactory} from "../router-param-factory";
-import ContextCreator from "./context-creator";
+import ContextCreator from "../helpers/context-creator";
 import {INTERCEPTORS_METADATA} from "../constants";
+import ParamsContext from '../params-context';
 
-class MetadataContextHelper extends ContextCreator{
+class InterceptorContext extends ContextCreator{
     private interceptorManager = new InterceptorManager();
-    private routeParamsFactory:RouteParamsFactory;
     constructor(
-        routeParamsFactory:RouteParamsFactory
+        private paramsContext:ParamsContext
     ) {
         super();
-        this.routeParamsFactory=routeParamsFactory;
     }
 
     protected createConcreteContext<T extends any[]>(
@@ -72,7 +70,7 @@ class MetadataContextHelper extends ContextCreator{
                 handle: () => fromPromise(nextFn(i + 1)()).pipe(mergeAll()),
             };
             const {instance,argsMap} = interceptors[i];
-            const args:any[] = this.routeParamsFactory.getArgsByMap(argsMap,context,next);
+            const args:any[] = this.paramsContext.getArgsByMap(argsMap,context,next);
             return instance.intercept.call({
                 ctx:context,
                 next:handler
@@ -82,4 +80,4 @@ class MetadataContextHelper extends ContextCreator{
     }
 }
 
-export default MetadataContextHelper;
+export default InterceptorContext;

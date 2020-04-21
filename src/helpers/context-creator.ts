@@ -1,5 +1,4 @@
 import {ControllerClass} from "../interfaces/controllers";
-import {INTERCEPTORS_METADATA} from "../constants";
 
 abstract class ContextCreator {
 
@@ -7,9 +6,9 @@ abstract class ContextCreator {
         metadata: T,
     );
 
-    public getMetadataList<T extends any[]>(controllerClass: ControllerClass, method: Function,metadataKey:string) {
+    protected getMetadataList<T extends any[]>(controllerClass: ControllerClass, method: Function,metadataKey:string) {
         const classMetadata = this.reflectClassMetadata<T>(controllerClass, metadataKey);
-        const methodMetadata = this.reflectMethodMetadata<T>(method, metadataKey);
+        const methodMetadata = this.reflectMethodMetadata<T>(method, metadataKey); // TODO 需要检测方法上是否生效
         // 优先级：Class > Method
         return [
             /*     ...this.createConcreteContext<T, R>(
@@ -24,11 +23,11 @@ abstract class ContextCreator {
         ];
     }
 
-    public reflectClassMetadata<T>(controllerClass: ControllerClass, metadataKey: string): T {
+    protected reflectClassMetadata<T>(controllerClass: ControllerClass, metadataKey: string): T {
         return Reflect.getMetadata(metadataKey, controllerClass);
     }
 
-    public reflectMethodMetadata<T>(
+    protected reflectMethodMetadata<T>(
         callback: Function,
         metadataKey: string,
     ): T {

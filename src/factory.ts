@@ -1,13 +1,13 @@
 import {Application} from 'egg';
-import Scanner from "./scanner";
+import RouteExecuteContext from './route-execute-context';
 
 class Factory {
     private readonly app: Application;
-    private scanner: Scanner;
+    private scanner: RouteExecuteContext;
 
     constructor(app: Application) {
         this.app = app;
-        this.scanner = new Scanner(this.app);
+        this.scanner = new RouteExecuteContext(this.app);
     }
 }
 

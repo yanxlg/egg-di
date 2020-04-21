@@ -1,4 +1,4 @@
-import BaseInterceptor, {Interceptor} from "../interceptor/base-interceptor";
+import BaseInterceptor, {Interceptor} from "./base-interceptor";
 import {ROUTE_ARGS_METADATA} from "../constants";
 
 export declare interface InterceptorMap {

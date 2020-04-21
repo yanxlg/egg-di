@@ -1,3 +1,4 @@
+import MetadataScanner from './medata-scanner';
 interface ControllerItem {
     fileName: string;
     prefix: string;
@@ -9,10 +10,8 @@ interface ControllerItem {
     }>;
     controllerClass: any;
 }
-declare class ControllerScanner {
-    private metadataScanner;
-    constructor();
-    scanFromDir(): ControllerItem[];
+declare class ControllerScanner extends MetadataScanner {
+    create(): ControllerItem[];
     private exploreControllerMetadata;
     private exploreMethodMetadata;
     private validateRoutePath;

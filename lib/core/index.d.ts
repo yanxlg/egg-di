@@ -7,4 +7,7 @@ export * from './optional.decorator';
 export * from './set-metadata.decorator';
 export * from './use-guards.decorator';
 export * from './use-interceptors.decorator';
+export * from './use-pipes.decorator';
 export * from './queue.decorator';
+export * from './role.decorator';
+export * from './validate.decorator';

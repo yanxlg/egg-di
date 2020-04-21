@@ -7,12 +7,12 @@ import {isEmpty, isFunction} from "../utils/shared.utils";
 import { ContextType} from "../interfaces";
 import {Observable} from "rxjs";
 import {Context} from "egg";
-import {RouteParamsFactory} from "../router-param-factory";
+import ParamsContext from '../params-context';
 
-export class GuardsContextCreator extends ContextCreator {
+export class GuardsContext extends ContextCreator {
   private interceptorManager = new GuardsManager();
   constructor(
-      private routeParamsFactory:RouteParamsFactory
+      private paramsContext:ParamsContext
   ) {
     super();
   }
@@ -41,13 +41,17 @@ export class GuardsContextCreator extends ContextCreator {
   public async tryActivate<TContext extends string = ContextType>(
       guards: GuardMap[],
       context:Context,
+      method: Function
   ): Promise<boolean> {
     if (!guards || isEmpty(guards)) {
       return true;
     }
     for (const guard of guards) {
-      const args:any[] = this.routeParamsFactory.getArgsByMap(guard.argsMap,context,undefined as any);
-      const result = guard.instance.canActivate.call(context,...args);
+      const args:any[] = this.paramsContext.getArgsByMap(guard.argsMap,context,undefined as any);
+      const result = guard.instance.canActivate.call({
+        context,
+        handler:method
+      },...args);
       if (await this.pickResult(result)) {
         continue;
       }

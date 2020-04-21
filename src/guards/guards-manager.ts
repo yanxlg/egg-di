@@ -6,7 +6,6 @@ export declare interface GuardMap {
     argsMap?: any;
 }
 
-
 class GuardsManager {
     private guardsMap = new Map<Guard, GuardMap>();
 
