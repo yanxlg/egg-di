@@ -40,16 +40,15 @@ class RouteExecuteContext {
             const {methods, prefix, controllerClass } = controller;
             methods.map((method) => {
                 const { path, requestMethod, targetCallback, methodName } = method;
-                this.app.router[requestMethod](
-                    join('/', prefix, path.join('')),
-                    this.create(controllerClass, targetCallback, methodName),
-                );
+                // middleware 自动会执行，不需要单独再次处理
+                this.app.router[requestMethod](join('/', prefix, path.join('')),this.create(controllerClass, targetCallback, methodName),);
             });
         });
     }
 
     /**
      * 创建路由middleware
+     *
      * @param controllerClass
      * @param method
      * @param methodName
@@ -64,6 +63,7 @@ class RouteExecuteContext {
         const paramsOptions = this.paramsContext.getParamsOptions(controllerClass,methodName);
         const guards = this.guardsContextCreator.getGuardList(controllerClass,method);
         const interceptors = this.metadataHelper.getInterceptors(controllerClass,method);
+
 
         // 优先级，守卫 > 拦截器
         const argsMap = MetadataContext.getClassMethodMetadata(controllerClass,methodName,ROUTE_ARGS_METADATA);
