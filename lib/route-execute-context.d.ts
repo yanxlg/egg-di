@@ -10,6 +10,7 @@ declare class RouteExecuteContext {
     private scanControllers;
     /**
      * 创建路由middleware
+     *
      * @param controllerClass
      * @param method
      * @param methodName
