@@ -16,7 +16,7 @@
   "dependencies": {
     "reflect-metadata": "^0.1.13",
     "iterare": "^1.2.0",
-    "class-transformer": "^0.2.3",
+    "class-transformer": "^0.3.1",
     "class-validator": "^0.12.1"
   },
   "devDependencies": {
